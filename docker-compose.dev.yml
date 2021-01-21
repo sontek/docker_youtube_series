@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  stkweb:
+    build:
+      target: dev
+      context: ./stkweb/
+
+    volumes:
+      - "./stkweb/:/srv"
+      # overwrite the volume to still keep
+      # node_modules in the container
+      - "/srv/node_modules"
+
+  stkapi:
+    build:
+      target: dev
+      context: ./stkapi/
+    volumes:
+      - "./stkapi/:/srv"
+
+  stknginx:
+    image: sontek/stknginx
+    ports:
+      - "80:80"
+    environment:
+      - STK_API_HOST=stkapi
+      - STK_WEB_HOST=stkweb
+    volumes:
+      - "./nginx/default.conf:/etc/nginx/conf.d/default.conf.template"
+    depends_on:
+      - stkweb
+      - stkapi
+

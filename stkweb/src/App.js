@@ -4,10 +4,13 @@ import {useEffect, useState} from 'react';
 
 function App() {
   const [message, setMessage] = useState("Hello Moon");
-  useEffect(async () => {
-    const response = await fetch('http://localhost/api');
-    const data = await response.json();
-    setMessage(data['message']);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('/api');
+      const data = await response.json();
+      setMessage(data['message']);
+    };
+    fetchData();
   }, []);
   return (
     <div className="App">
