@@ -1,0 +1,18 @@
+services:
+  stkweb:
+    image: stkweb
+    volumes:
+      - "./stkweb/:/srv"
+
+  stkapi:
+    image: stkapi
+    volumes:
+      - "./stkapi/:/srv"
+
+  nginx:
+    image: stknginx
+    ports:
+      - "80:80"
+    depends_on:
+      - stkweb
+      - stkapi

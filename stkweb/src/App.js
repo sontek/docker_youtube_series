@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 function App() {
-  const [message, setMessage] = useState('Hello Moon');
+  const [message, setMessage] = useState("Hello Moon");
   useEffect(async () => {
-    const response = await fetch('http://localhost:8000/');
+    const response = await fetch('http://localhost/api');
     const data = await response.json();
     setMessage(data['message']);
   }, []);
